@@ -1,6 +1,6 @@
-import { Input, Button, Select, SelectItem } from "@nextui-org/react";
+import { Input, Button } from "@nextui-org/react";
 import { CameraIcon } from "../components/icons/CameraIcon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { collection, getFirestore, addDoc } from "firebase/firestore";
 import Swal from "sweetalert2";
 import { useGetCategories } from "../hooks/useProducts";
@@ -13,8 +13,6 @@ export const CreateProduct = () => {
   const [price, setPrice] = useState(0);
 
   const { categories } = useGetCategories();
-
-  const placements = ["outside"];
 
   const handleFieldReset = () => {
     setTitle("");
@@ -43,8 +41,7 @@ export const CreateProduct = () => {
       return Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Something went wrong!",
-        footer: '<a href="#">Why do I have this issue?</a>',
+        text: "Something went wrong! mandatory field without filling",
       });
     }
 
@@ -53,7 +50,7 @@ export const CreateProduct = () => {
     addDoc(productsCollection, data).then(({ id }) => {
       return handleFieldReset(
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: "Your work has been saved",
           showConfirmButton: false,
@@ -63,6 +60,10 @@ export const CreateProduct = () => {
       );
     });
   };
+
+  useEffect(() => {
+    document.title = 'Create New Product';
+  });
 
   return (
     <div className="flex flex-col gap-8 pt-12 mx-auto mt-6 max-w-5xl p-8">

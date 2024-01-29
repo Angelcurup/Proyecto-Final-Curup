@@ -11,7 +11,7 @@ const ItemCount = () => {
   };
 
   const handleRemove = () => {
-    setCountItem(counItem - 1);
+    counItem > 1 && setCountItem(counItem - 1);
   };
 
   return (

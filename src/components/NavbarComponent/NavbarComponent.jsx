@@ -9,12 +9,12 @@ import {
   Dropdown,
   DropdownMenu,
   Tooltip,
-  Avatar,
 } from "@nextui-org/react";
 import { ChevronDown } from "../icons/Icons.jsx";
 import { Link } from "react-router-dom";
 import { CartWidget } from "./CartWidget.jsx";
 import { useGetCategories } from "../../hooks/useProducts.jsx";
+import { Logo } from "../icons/Logo.jsx";
 
 export default function NavbarComponent() {
   const icons = {
@@ -28,7 +28,8 @@ export default function NavbarComponent() {
   return (
     <Navbar>
       <NavbarBrand>
-        <Link className="font-bold text-inherit" to={"/"}>
+        <Link className="font-bold text-inherit flex items-center gap-4" to={"/"}>
+          <Logo />
           Smart-Technology
         </Link>
       </NavbarBrand>

@@ -2,10 +2,16 @@ import { Image } from "@nextui-org/react";
 import { useGetProductById } from "../hooks/useProducts";
 import { Link, useParams } from "react-router-dom";
 import ItemCount from "../components/ItemCount/ItemCount";
+import { useEffect } from "react";
+
 
 export const ItemDetailContainer = () => {
   const { productId } = useParams();
   const { productData } = useGetProductById("products", productId);
+
+  useEffect(() => {
+    document.title = `Category - ${productData.title}`;
+  });
 
   return (
     <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16 pt-6 items-center">

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getProductByCategory } from "../services";
+
 import {
   collection,
   getDocs,

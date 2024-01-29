@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
 import { useGetProductById } from "../hooks/useProducts";
 import { useState, useEffect } from "react";
-import { Input, Button, Select, SelectItem } from "@nextui-org/react";
+import { Input, Button } from "@nextui-org/react";
 import { CameraIcon } from "../components/icons/CameraIcon";
+import Swal from "sweetalert2";
 import { doc, getFirestore, updateDoc } from "firebase/firestore";
 
 export const UpdateProduct = () => {
-  const placements = ["outside"];
 
   const { id } = useParams();
 
@@ -38,9 +38,23 @@ export const UpdateProduct = () => {
     const productsCollection = doc(db, "products", id);
     
     updateDoc(productsCollection, data).then(() => {
-      alert("Product updated successfully");
+      return(
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Your work has been saved",
+          showConfirmButton: false,
+          timer: 1500,
+          id,
+        })
+      );
     });
   };
+
+  useEffect(() => {
+    document.title = `Update - ${productData.title}`;
+  });
+ 
 
   return (
     <div className="flex flex-col gap-8 pt-12 mx-auto mt-6 max-w-5xl p-8">
@@ -69,25 +83,6 @@ export const UpdateProduct = () => {
         />
       </div>
       <div className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 items-end">
-        <div className="w-full">
-          {/* <div className="flex w-full flex-wrap items-end md:flex-nowrap mb-6 md:mb-0 gap-4">
-            {placements.map((placement) => (
-              <Select
-                labelPlacement={placement}
-                label="Categories"
-                placeholder="Select categories"
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                {categories.map((categories, index) => (
-                  <SelectItem key={index} value={categories.value}>
-                    {categories}
-                  </SelectItem>
-                ))}
-              </Select>
-            ))}
-          </div> */}
-        </div>
-
         <Input
           type="text"
           endContent={<CameraIcon />}
